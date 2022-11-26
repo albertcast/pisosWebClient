@@ -25,6 +25,12 @@
 		window.location = "/detallesApartamento.html";
 	};
 	</script>
+	
+	<script>
+    $.get("/authentication", function(data) {
+    	localStorage.username=data.name;
+    });
+</script>
 
 </head>
 <body>
