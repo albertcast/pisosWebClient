@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-public class PisosWebClientApplication extends WebSecurityConfigurerAdapter {
+public class PisosWebClientApplication  {
 
 	@GetMapping("/user")
     public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
@@ -28,33 +28,25 @@ public class PisosWebClientApplication extends WebSecurityConfigurerAdapter {
 		return null;
     }
 	
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		// @formatter:off
-		http
-			.authorizeRequests(a -> a
-				.antMatchers("/login.html", "/index.html", "/error", "/webjars/**").permitAll()
-				.anyRequest().authenticated()
-			)
-			.exceptionHandling(e -> e
-				.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
-			)
-			.csrf(c -> c
-				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-			)
-			.logout(l -> l
-				.logoutSuccessUrl("/login.html")
-			)
-			.oauth2Login();
-		// @formatter:on
-	}
 	
-//	@Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//		http
-//        	.oauth2Login();
-//        return http.build();
-//    }
+	
+	@Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http
+		.authorizeRequests(a -> a
+			.antMatchers("/login.html", "/error", "/webjars/**").permitAll()
+			.anyRequest().authenticated()
+		)
+		.exceptionHandling(e -> e
+			.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+		)
+		.csrf().disable().cors().and()
+		.logout(l -> l
+			.logoutSuccessUrl("/login.html")
+		)
+		.oauth2Login();
+        return http.build();
+    }
 	
 	public static void main(String[] args) {
 		SpringApplication.run(PisosWebClientApplication.class, args);

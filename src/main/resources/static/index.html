@@ -1,43 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>Demo</title>
-<meta name="description" content="" />
-<meta name="viewport" content="width=device-width" />
-<link rel="stylesheet" type="text/css"
-    href="/webjars/bootstrap/css/bootstrap.min.css" />
-<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-<script type="text/javascript"
-    src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-<!--  link para ajax -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+	<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    	<!--  link para ajax -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <!--  archivo de javascript para cargar info del servi -->
-<script src="js/ejemplo.js"></script>
 <script src="js/listaApartamentos.js"></script>
 
 <!--  import del navbar -->
-<script> 
+<script type="text/javascript"> 
     $(function(){
       $("#navbar").load("navbar.html"); 
     });
 </script>
-	<script>
+	<script type="text/javascript">
 	function sendToDetalles(id) {
 		window.localStorage.setItem("apartmentId", id);
 		window.location = "/detallesApartamento.html";
 	};
 	</script>
-	
-	
-	
-
-
-	
-	
-	
 
 </head>
 <body>
