@@ -3,4 +3,3 @@ function action() {
 	alert(localStorage.otro);
 };
 
- 	
