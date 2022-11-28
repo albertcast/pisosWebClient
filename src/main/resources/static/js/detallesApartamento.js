@@ -5,7 +5,7 @@ $(document).ready(function(id) {
        	$('.apartment-title').append(data.title);
        	$('.apartment-place').append(data.place);
 		$('.apartment-description').append(data.description);
-       	$('.apartment-date').append(data.date);
+       	$('.apartment-date').append(data.date.substring(0,10));
 
     });
 });	

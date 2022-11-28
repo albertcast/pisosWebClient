@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+	<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    	<!--  link para ajax -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+	<!--  import del navbar -->
+	<script type="text/javascript"> 
+	    $(function(){
+	      $("#navbar").load("navbar.html"); 
+	    });
+	</script>
+
+	<script>
+		function addFlat(){
+			$.ajax({
+				type:"POST",
+				url: "https://pisoswebserver.herokuapp.com/api/apartment/addFlat",
+				data:{
+					title:document.getElementById("title").value,
+					place:document.getElementById("place").value,
+					description:document.getElementById("description").value,
+					date:document.getElementById("date").value,
+					owner:sessionStorage.userId,
+					capacity:document.getElementById("capacity").value,
+				},
+				success: function(data){			
+					 alert("hola");
+				}
+			});
+		}
+	
+	
+	</script>
+
+</head>
+
+<body>
+	<div id="navbar"></div>
+	<div>
+		<form action="javascript:addFlat()">
+			<div class="form-group"> <!-- Full Name -->
+		        <label for="title" class="control-label">Title</label>
+		        <input type="text" id="title" placeholder="Flat">
+		    </div>    
+		
+		    <div class="form-group"> <!-- Street 1 -->
+		        <label for="place" class="control-label">Place</label>
+		        <input type="text" id="place" placeholder="Street address, P.O. box, company name, c/o">
+		    </div>                    
+		                            
+		    <div class="form-group"> <!-- Street 2 -->
+		        <label for="description" class="control-label">Description</label>
+		        <input type="text" id="description" placeholder="Apartment, suite, unit, building, floor, etc.">
+		    </div>    
+		
+		    <div class="form-group"> <!-- City-->
+		        <label for="date" class="control-label">Date</label>
+		        <input type="date" id="date" placeholder="01/01/1999">
+		    </div>
+			
+			<div class="form-group"> <!-- City-->
+		        <label for="capacity" class="control-label">Capacity</label>
+		        <input type="number" min="1" id="capacity" placeholder="1">
+		    </div>
+		    
+			<div class="form-group"> <!-- Submit Button -->
+		        <button type="submit" class="btn btn-primary">Buy!</button>
+		    </div>
+		
+			
+		</form>
+	</div>
+</body>
+
+</html>
