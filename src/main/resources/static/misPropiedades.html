@@ -16,7 +16,12 @@
     });
 </script>
 <script src="js/misPropiedades.js"></script>
-
+	<script type="text/javascript">
+	function sendToDetalles(id) {
+		window.sessionStorage.setItem("apartmentId", id);
+		window.location = "/detallesApartamento.html";
+	};
+	</script>
 </head>
 
 <body>

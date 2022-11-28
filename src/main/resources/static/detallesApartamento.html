@@ -13,7 +13,25 @@
 	      $("#navbar").load("navbar.html"); 
 	    });
 	</script>
-
+	
+	<script>
+	$.ajax({
+		type:"GET",
+		url: "https://pisoswebserver.herokuapp.com/api/apartment/"+sessionStorage.apartmentId,
+    	success: function(msg){
+             //alert("hola");
+        }
+	}).then(function(datos) {
+		if(sessionStorage.userId == datos.owner){
+            $(".property").show();
+		} else {
+            $(".property").hide();
+		}
+	});
+	
+	
+	
+	</script>
 
 </head>
 
@@ -23,13 +41,15 @@
 <body>
 	<div id="navbar"></div>
 
+
 	<div>
     	<p class="apartment-title">Titulo: </p>
         <p class="apartment-place">Localización: </p>
         <p class="apartment-description">Descripcion: </p>
         <p class="apartment-date">Fecha: </p>
     </div>
-
+	<input class="property" type="button" value="Editar" style="display: none;"/>
+	<input class="property" type="button" value="Borrar" style="display: none;"/>
 </body>
 
 
