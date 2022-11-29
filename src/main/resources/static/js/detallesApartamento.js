@@ -6,6 +6,7 @@ $(document).ready(function(id) {
        	$('.apartment-place').append(data.place);
 		$('.apartment-description').append(data.description);
        	$('.apartment-date').append(data.date.substring(0,10));
+        $('.apartment-capacity').append(data.capacity);
 
     });
 });	
