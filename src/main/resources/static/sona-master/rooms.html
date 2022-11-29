@@ -43,7 +43,7 @@
 	
 	<script>
 	function sendToDetalles(id) {
-		window.localStorage.setItem("apartmentId", id);
+		window.sessionStorage.setItem("apartmentId", id);
 		window.location = "/sona-master/room-details.html";
 	};
 	</script>
@@ -137,7 +137,7 @@
 				                <span>NOMBRE DEL USUARIO <i class="fa fa-angle-down"></i></span>
 					                <div class="flag-dropdown">
 					                    <ul>
-					                        <li><a href="#">Mis viviendas</a></li>
+					                        <li><a href="misViviendas.html">Mis viviendas</a></li>
 					                        <li><a href="#">Mensajes</a></li>
 					                        <li><a href="#">Cerrar sesión</a></li>
 					                    </ul>

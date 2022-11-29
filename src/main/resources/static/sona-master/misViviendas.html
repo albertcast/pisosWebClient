@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="../js/listaApartamentos2.js"></script>
+    <script src="../js/listaApartamentos3.js"></script>
     
     
     
@@ -43,8 +43,8 @@
 	
 	<script>
 	function sendToDetalles(id) {
-		window.localStorage.setItem("apartmentId", id);
-		window.location = "/sona-master/room-details.html";
+		window.sessionStorage.setItem("apartmentId", id);
+		window.location = "/sona-master/editarVivienda.html";
 	};
 	</script>
 	
@@ -137,7 +137,7 @@
 				                <span>NOMBRE DEL USUARIO <i class="fa fa-angle-down"></i></span>
 					                <div class="flag-dropdown">
 					                    <ul>
-					                        <li><a href="#">Mis viviendas</a></li>
+					                        <li><a href="misViviendas.html">Mis viviendas</a></li>
 					                        <li><a href="#">Mensajes</a></li>
 					                        <li><a href="#">Cerrar sesión</a></li>
 					                    </ul>
@@ -187,11 +187,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-text">
-                        <h2>Nuestras viviendas</h2>
-                        <div class="bt-option">
-                            <a href="./home.html">Home</a>
-                            <span>Viviendas</span>
-                        </div>
+                        <h2>Mis viviendas</h2>
+                        
                     </div>
                 </div>
             </div>
@@ -202,7 +199,7 @@
     <!-- Rooms Section Begin -->
     <section class="rooms-section spad">
         <div class="container">
-        	<div class="row" id="tablaAparment">
+        	<div class="row" id="tablaApar">
             </div>
         </div>
     </section>
