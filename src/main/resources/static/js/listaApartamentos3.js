@@ -2,7 +2,6 @@ $(document).ready(function() {
     $.ajax({
       	url: "https://pisoswebserver.herokuapp.com/api/apartment/",
 		success: function(data){	
-			let output;					
 			data.map(i => {
 				if(i.owner == sessionStorage.userId){
 				document.getElementById("tablaApar").innerHTML += "<div class='col-lg-4 col-md-6'>"+

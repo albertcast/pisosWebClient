@@ -7,15 +7,11 @@
     <meta name="keywords" content="Sona, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sona | Template</title>
-	
-	
-    
+    <title>LandBNB</title>
+
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Lora:400,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,700&display=swap" rel="stylesheet">
-    
-    
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -28,13 +24,10 @@
     <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
-	<!--  import del navbar -->
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="../js/detallesApartamento.js"></script>
-	
-	 <!-- Js Plugins -->
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    
+     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.magnific-popup.min.js"></script>
@@ -71,46 +64,25 @@
  	
 	<script>
 	
-	$(document).ready(function() {
-	    $.ajax({
-	    	type:"GET",
-	      	url: "https://pisoswebserver.herokuapp.com/api/apartment/"+sessionStorage.apartmentId,
-	    }).then(function(data) {
-	    	let date = new Date()
-
-	    	let day = date.getDate()
-	    	let month = date.getMonth() + 1
-	    	let year = date.getFullYear()
-
-	    	if(month < 10){
-	    		document.getElementById("date").value = year + '-0' + month + '-' + day
-	    	}else{
-	    		document.getElementById("date").value = year + '-' + month + '-' + day
-	    	}
-	    	document.getElementById("title").value = data.title;
-			document.getElementById("place").value = data.place;
-			document.getElementById("description").value = data.description;
-			document.getElementById("capacity").value = data.capacity;
-	    });
-	});
-	
 	function addFlat(){
 		$.ajax({
-			type:"PUT",
-			url: "https://pisoswebserver.herokuapp.com/api/apartment/updateFlat",
+			type:"POST",
+			url: "https://pisoswebserver.herokuapp.com/api/apartment/addFlat",
 			data:{
-				id:sessionStorage.apartmentId,
 				title:document.getElementById("title").value,
 				place:document.getElementById("place").value,
 				description:document.getElementById("description").value,
 				date:document.getElementById("date").value,
+				owner:sessionStorage.userId,
 				capacity:document.getElementById("capacity").value,
 			},
 			success: function(data){			
-				 alert("SE HA EDITADO LA VIVIENDA CORRECTAMENTE");
+				 alert("NUEVA VIVIENDA");
 			}
 		});
 	}
+	
+	
 	
 	</script>
 	
@@ -138,7 +110,11 @@
                     <div class="breadcrumb-text">
                         <h2 class="apartment-title"></h2>
                         <div>
-                            <a>Edita tu vivienda</a>
+                        	<a>Nuevo apartamento</a>
+                        </div>
+                        <div>
+                        	<label for="title">Titulo:</label>
+							<input type="text" id="title" placeholder="Titulo de la vivienda">
                         </div>
                     </div>
                 </div>
@@ -155,19 +131,6 @@
                     <div class="room-details-item">
                         <img src="img/room/room-details.jpg" alt="">
                         <div class="rd-text">
-                            <div class="rd-title">
-                                <h3><input type="text" id="title" placeholder="Flat"></h3>
-                                <div class="rdt-right">
-                                    <div class="rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star-half_alt"></i>
-                                    </div>
-                                    
-                                </div>
-                            </div>
                             <h2>X€<span>/Por noche</span></h2>
                             <table>
                                 <tbody>
@@ -189,7 +152,7 @@
 								<form action="javascript:addFlat()">
 									
 									<div class="form-group"> <!-- Submit Button -->
-								        <button type="submit" class="btn btn-primary">EDITAR</button>
+								        <button type="submit" class="btn btn-primary">NUEVO APARTAMENTO</button>
 								    </div>
 								
 									
@@ -197,48 +160,6 @@
 							</div>
                         </div>
                     </div>
-                    <div class="rd-reviews">
-                        <h4>Reseñas</h4>
-                        <div class="review-item">
-                            <div class="ri-pic">
-                                <img src="img/room/avatar/avatar-1.jpg" alt="">
-                            </div>
-                            <div class="ri-text">
-                                <span>27 Aug 2019</span>
-                                <div class="rating">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star-half_alt"></i>
-                                </div>
-                                <h5>Brandon Kelley</h5>
-                                <p>Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                                    adipisci velit, sed quia non numquam eius modi tempora. incidunt ut labore et dolore
-                                    magnam.</p>
-                            </div>
-                        </div>
-                        <div class="review-item">
-                            <div class="ri-pic">
-                                <img src="img/room/avatar/avatar-2.jpg" alt="">
-                            </div>
-                            <div class="ri-text">
-                                <span>27 Aug 2019</span>
-                                <div class="rating">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star-half_alt"></i>
-                                </div>
-                                <h5>Brandon Kelley</h5>
-                                <p>Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                                    adipisci velit, sed quia non numquam eius modi tempora. incidunt ut labore et dolore
-                                    magnam.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
                     
                 </div>
                 
