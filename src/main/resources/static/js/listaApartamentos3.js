@@ -1,10 +1,11 @@
 $(document).ready(function() {
     $.ajax({
       	url: "https://pisoswebserver.herokuapp.com/api/apartment/",
-		success: function(data){		
-			sessionStorage.setItem("apartmentId", data.apartmentId);
-										
-			let output = data.map(i => "<div class='col-lg-4 col-md-6'>"+
+		success: function(data){	
+			let output;					
+			data.map(i => {
+				if(i.owner == sessionStorage.userId){
+				document.getElementById("tablaApar").innerHTML += "<div class='col-lg-4 col-md-6'>"+
                     "<div class='room-item'>"+
                         "<img src='img/room/room-1.jpg' alt=''>"+
                         "<div class='ri-text'>"+
@@ -22,15 +23,15 @@ $(document).ready(function() {
                                     "</tr>"+                                                               
                                 "</tbody>"+
                             "</table>"+
-                            "<a href='#' class='primary-btn clickable' onclick='sendToDetalles("+ '"'+ i.id + '"' + ")'>Editar</a>"+
+                            "<a href='#' class='primary-btn clickable property' onclick='sendToDetalles("+ '"'+ i.id + '"' + ")'>Editar</a>"+
                             "<div>"+
-                        	"<a href='#' align='right' class='primary-btn clickable' onclick='sendToDetalles("+ '"'+ i.id + '"' + ")'>Borrar</a>"+
+                        	"<a href='#' align='right' class='primary-btn clickable property' onclick='sendToDetalles("+ '"'+ i.id + '"' + ")'>Borrar</a>"+
                         	"</div>"+
-                        "</div></div></div>").join('');
-                        
+                        "</div></div></div>";    
+                   }
+                }).join('');
             
                 
-			document.getElementById("tablaApar").innerHTML += output;
 		}
     })
 });
