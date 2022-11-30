@@ -49,7 +49,88 @@
 		 });
 	</script>		
     <script src="../js/listaComentarios.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="../js/detallesApartamento.js"></script>
+    <script>
+    	$.ajax({
+    		url: "https://pisoswebserver.herokuapp.com/api/apartment/"+window.sessionStorage.apartmentId
+    	}).then(function(data) {
+    		let date = new Date(data.date)
+
+	    	let day = date.getDate()
+	    	let month = date.getMonth() + 1
+	    	let year = date.getFullYear()
+
+	    	if(month < 10){
+	    		if(day < 10){
+		    		document.getElementById("date-in").min = year + '-0' + month + '-0' + day
+		    		document.getElementById("date-out").min = year + '-0' + month + '-0' + day
+				} else {
+		    		document.getElementById("date-in").min= year + '-0' + month + '-' + day
+		    		document.getElementById("date-out").min= year + '-0' + month + '-' + day
+				}
+	    	}else{
+	    		if(day < 10){
+		    		document.getElementById("date-in").min= year + '-' + month + '-0' + day
+		    		document.getElementById("date-out").min= year + '-' + month + '-0' + day
+
+				} else {
+		    		document.getElementById("date-in").min= year + '-' + month + '-' + day
+		    		document.getElementById("date-out").min= year + '-' + month + '-' + day
+
+				}
+	    	}
+			document.getElementById("capac").max = data.capacity;
+	    });
+	</script>
+	<script>
+		var newMin = function(){
+			document.getElementById("date-out").min = document.getElementById("date-in").value
+		}
 	
+	
+	</script>
+	<script>
+		var reservar = function(){
+			$.ajax({
+				type:"POST",
+	    		url: "https://pisoswebserver.herokuapp.com/api/booking/addBooking",
+	    		data:{ 
+	    			guest:sessionStorage.userId,
+	    			arrivalDate:document.getElementById("date-in").value, 
+	    			departureDate:document.getElementById("date-out").value, 
+	    			apartment:sessionStorage.apartmentId,
+	    		}
+	    	}).then(function(data) {
+	    		$.ajax({
+	    			type:"GET",
+	    	        url: "https://pisoswebserver.herokuapp.com/api/apartment/"+window.sessionStorage.apartmentId
+	    		}).then(function(datos){
+	    			$.ajax({
+						type:"PUT",
+						url: "https://pisoswebserver.herokuapp.com/api/apartment/updateFlat",
+						data:{
+							id:sessionStorage.apartmentId,
+							title:datos.title,
+							place:datos.place,
+							description:datos.description,
+							date:document.getElementById("date-out").value,
+							capacity:datos.capacity,
+							price:datos.price,
+						},
+						success: function(data){			
+							 //alert("SE HA EDITADO LA VIVIENDA CORRECTAMENTE");
+						}
+					});
+	    		})
+	    	})};
+			
+			
+		
+	
+	
+	
+	</script>
 </head>
 
 <body>
@@ -160,41 +241,22 @@
                 <div class="col-lg-4">
                     <div class="room-booking">
                         <h3>Tu reserva</h3>
-                        <form action="#">
+                        <form action="javascript:reservar()">
                             <div class="check-date">
                                 <label for="date-in">Check In:</label>
-                                <input type="text" class="date-input" id="date-in">
-                                <i class="icon_calendar"></i>
+                                <input type="date" id="date-in" oninput="newMin()">
                             </div>
                             <div class="check-date">
                                 <label for="date-out">Check Out:</label>
-                                <input type="text" class="date-input" id="date-out">
-                                <i class="icon_calendar"></i>
+                                <input type="date" id="date-out" >
                             </div>
-                            <div class="select-option">
-                                <label for="guest">Huéspedes:</label>
-                                <select id="capac" id="guest">
-                                    <option value="">vegeta </option>
-                                </select>
-                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-								<script src="../js/detallesApartamento.js"></script>
-    							<script>
-    							$.ajax({
-    						        url: "https://pisoswebserver.herokuapp.com/api/apartment/"+window.sessionStorage.apartmentId
-    						    }).then(function(data) {
-    								for(let i=0;i<5;i++){
-    									let output="<option value=\"\">"+i+" Personas</option>";
-    									document.getElementById("capac").innerHTML += output;
-    									console.log("HOLA1");
-    								}
 
-    						    });
-    							
-    							</script>
-    							<script>console.log("Se ha cargado la capacidad");</script>
-    							
-                            </div>
-                            <button type="submit">Comprobar disponibilidad</button>
+                            <div style="width:450px">
+							     <label>Huéspedes:</label>
+                                 <input id="capac" type="number" min="1"  placeholder="1">
+							</div>
+                            
+                            <button type="submit">Reservar</button>
                         </form>
                     </div>
                 </div>
