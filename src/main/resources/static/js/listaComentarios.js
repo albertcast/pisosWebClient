@@ -1,5 +1,23 @@
 
+function usuario(id) {
+	nombre=""
+    $.ajax({
+        url: "https://pisoswebserver.herokuapp.com/api/user/"+id
+    }).then(function(data) {
+       $('.user-name').append(data.usuarioId);
+       nombre=data.nombre
+       console.log(data)
+       alert(nombre)
+       $('.user-lastname').append(data.email);
+    });
+    return nombre
+};
+
+
+
+
 $(document).ready(function() {
+
     $.ajax({
       	url: "https://pisoswebserver.herokuapp.com/api/comment/apartment/"+window.sessionStorage.apartmentId,
 		success: function(data){		
@@ -17,7 +35,7 @@ $(document).ready(function() {
                                     "<i class='icon_star'></i>"+
                                     "<i class='icon_star-half_alt'></i>"+
                                 "</div>"+
-                                "<h5>Nombre del usuario</h5>"+
+                                "<h5>"+String(usuario(i.user))+"</h5>"+
                                 "<p>"+i.text+"</p>"+
                             "</div>"+
                         "</div>").join('');

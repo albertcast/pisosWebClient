@@ -126,7 +126,22 @@
 	    	})};
 			
 			
-		
+   	function addComment(){
+   		$.ajax({
+   			type:"POST",
+   			url: "https://pisoswebserver.herokuapp.com/api/apartment/addComment",
+   			data:{
+   				user:sessionStorage.userId,
+   				apartment:sessionStorage.apartmentId,
+   				text:document.getElementById("textoCom").value,
+   				rating:document.getElementById("valorar").value,
+   				date:new Date(),
+   			},
+   			success: function(data){			
+   				 alert("SE HA AÑADIDO EL COMENTARIO CORRECTAMENTE");
+   			}
+   		});
+   	}	
 	
 	
 	
@@ -214,25 +229,13 @@
                         <h4>Añadir reseña</h4>
                         <form action="#" class="ra-form">
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <input type="text" placeholder="Nombre*">
-                                </div>
-                                <div class="col-lg-6">
-                                    <input type="text" placeholder="Email*">
-                                </div>
                                 <div class="col-lg-12">
                                     <div>
                                         <h5>Valoración:</h5>
-                                        <div class="rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star-half_alt"></i>
-                                        </div>
+                                        <input type="number" min="1" max="5" id="valorar" placeholder="Introduce un número del 1 al 5">                                       
                                     </div>
-                                    <textarea placeholder="Tu reseña"></textarea>
-                                    <button type="submit">Publicar</button>
+                                    <textarea id="textoCom" placeholder="Tu reseña"></textarea>
+                                    <button type="submit" onclick="addComment()">Publicar</button>
                                 </div>
                             </div>
                         </form>
