@@ -44,7 +44,7 @@
 		             //alert(data.accountAuthentication);
 		        }
       	    }).then(function(datos) {
-				if(datos == null){
+      	    	if(datos == null){
 					$.ajax({
 						type: "POST",
 						url: "https://pisoswebserver.herokuapp.com/api/user/addUser",
@@ -52,19 +52,20 @@
 						success: function(msg){
 				             //alert(data.accountAuthentication);
 				        }
-					});
-				}
-				$.get({
-					url: "https://pisoswebserver.herokuapp.com/api/user/accountAuthentication",
-					data:{accountAuthentication:data.accountAuthentication}
-	      	    }).then(function(d) {
-	      	    	//alert("HOLA");
-	      	    	sessionStorage.userId = d.usuarioId;
-	      	    	sessionStorage.email = d.email;
-					sessionStorage.name = d.nombre;
-					sessionStorage.lastname = d.apellidos;
-					sessionStorage.age = d.edad;
-	      	    });		
+					}).then(function(d){
+						sessionStorage.userId = d.usuarioId;
+		      	    	sessionStorage.email = d.email;
+						sessionStorage.name = d.nombre;
+						sessionStorage.lastname = d.apellidos;
+						sessionStorage.age = d.edad;				
+					})
+				} else {
+					sessionStorage.userId = datos.usuarioId;
+	      	    	sessionStorage.email = datos.email;
+					sessionStorage.name = data.string;
+					sessionStorage.lastname = datos.apellidos;
+					sessionStorage.age = datos.edad;
+				}	
       	    });
         	
             $("#user").html(data.name);

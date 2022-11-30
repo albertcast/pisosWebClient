@@ -44,6 +44,7 @@ public class PisosWebClientApplication  {
 			mapa.put("name", principal.getAttribute("name"));
 			mapa.put("lastname", "");
 			mapa.put("age", 0);
+			mapa.put("avatar_url", principal.getAttribute("avatar_url"));
 			mapa.put("string", principal.getAttributes().toString());
 
 

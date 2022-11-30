@@ -40,7 +40,8 @@
 		      	    	sessionStorage.email = d.email;
 						sessionStorage.name = d.nombre;
 						sessionStorage.lastname = d.apellidos;
-						sessionStorage.age = d.edad;				
+						sessionStorage.age = d.edad;
+						sessionStorage.avatar = data.avatar_url;
 					})
 				} else {
 					sessionStorage.userId = datos.usuarioId;
@@ -48,6 +49,7 @@
 					sessionStorage.name = datos.nombre;
 					sessionStorage.lastname = datos.apellidos;
 					sessionStorage.age = datos.edad;
+					sessionStorage.avatar = data.avatar_url;
 				}
 					
       	    });
@@ -55,6 +57,7 @@
             $("#user").html(data.name);
             $(".unauthenticated").hide();
             $(".authenticated").show();
+            document.getElementById("avatar").setAttribute("src",  sessionStorage.avatar)
           });
           var logout = function() {
             $.post("/logout", function() {
@@ -69,7 +72,11 @@
             })
             return true;
           }
-        </script>
+        
+          
+          </script>
+        
+        
 
 </head>
 <body>
@@ -95,7 +102,7 @@
                             	</ul>
                             </div>
                             <div class="language-option authenticated">
-				                <img src="img/user.png" alt="">
+				                <img id="avatar" alt="">
 				                <span><span id="user"></span> <i class="fa fa-angle-down"></i></span>
 					                <div class="flag-dropdown">
 					                    <ul>
