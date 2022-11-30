@@ -3,7 +3,6 @@ $(document).ready(function() {
     $.ajax({
       	url: "https://pisoswebserver.herokuapp.com/api/comment/apartment/"+window.sessionStorage.apartmentId,
 		success: function(data){		
-			sessionStorage.setItem("apartmentId", data.apartmentId);
 										
 			let output = data.map(i => "<div class='review-item'>"+
                             "<div class='ri-pic'>"+
@@ -19,7 +18,7 @@ $(document).ready(function() {
                                     "<i class='icon_star-half_alt'></i>"+
                                 "</div>"+
                                 "<h5>Nombre del usuario</h5>"+
-                                "<p>"+data.text+"</p>"+
+                                "<p>"+i.text+"</p>"+
                             "</div>"+
                         "</div>").join('');
      
