@@ -64,6 +64,7 @@
 				date:document.getElementById("date").value,
 				owner:sessionStorage.userId,
 				capacity:document.getElementById("capacity").value,
+				price:document.getElementById("price").value,
 			},
 			success: function(data){			
 				 alert("SE HA AÑADIDO LA VIVIENDA CORRECTAMENTE");
@@ -126,7 +127,7 @@
                                 <h3><input type="text" id="title" placeholder="Flat"></h3>
                                 
                             </div>
-                            <h2>X€<span>/Por noche</span></h2>
+                            <h2><input type="number" id="price" placeholder="Price">€<span>/Por noche</span></h2>
                             <table>
                                 <tbody>
                                     <tr>

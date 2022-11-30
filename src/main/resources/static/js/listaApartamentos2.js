@@ -9,7 +9,7 @@ $(document).ready(function() {
                         "<img src='img/room/room-1.jpg' alt=''>"+
                         "<div class='ri-text'>"+
                             "<h4>"+i.title+"</h4>"+
-                            "<h3>"+"X"+"€<span>/Por noche</span></h3>"+
+                            "<h3>"+i.price+"€<span>/Por noche</span></h3>"+
                             "<table>"+
                                 "<tbody>"+
                                     "<tr>"+

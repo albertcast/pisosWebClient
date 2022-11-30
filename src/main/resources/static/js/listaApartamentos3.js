@@ -9,7 +9,7 @@ $(document).ready(function() {
                         "<img src='img/room/room-1.jpg' alt=''>"+
                         "<div class='ri-text'>"+
                             "<h4>"+i.title+"</h4>"+
-                            "<h3>"+"X"+"€<span>/Por noche</span></h3>"+
+                            "<h3>"+i.price+"€<span>/Por noche</span></h3>"+
                             "<table>"+
                                 "<tbody>"+
                                     "<tr>"+
@@ -23,9 +23,7 @@ $(document).ready(function() {
                                 "</tbody>"+
                             "</table>"+
                             "<a href='#' class='primary-btn clickable property' onclick='sendToDetalles("+ '"'+ i.id + '"' + ")'>Editar</a>"+
-                            "<div>"+
-                        	"<a href='#' align='right' class='primary-btn clickable property' onclick='sendToDetalles("+ '"'+ i.id + '"' + ")'>Borrar</a>"+
-                        	"</div>"+
+                            
                         "</div></div></div>";    
                    }
                 }).join('');

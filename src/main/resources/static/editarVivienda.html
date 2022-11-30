@@ -91,6 +91,7 @@
 			document.getElementById("place").value = data.place;
 			document.getElementById("description").value = data.description;
 			document.getElementById("capacity").value = data.capacity;
+			document.getElementById("price").value = data.price;
 	    });
 	});
 	
@@ -105,6 +106,7 @@
 				description:document.getElementById("description").value,
 				date:document.getElementById("date").value,
 				capacity:document.getElementById("capacity").value,
+				price:document.getElementById("price").value,
 			},
 			success: function(data){			
 				 alert("SE HA EDITADO LA VIVIENDA CORRECTAMENTE");
@@ -181,7 +183,7 @@
                                     
                                 </div>
                             </div>
-                            <h2>X€<span>/Por noche</span></h2>
+                            <h2><input type="number" id="price" placeholder="Price">€<span>/Por noche</span></h2>
                             <table>
                                 <tbody>
                                     <tr>
