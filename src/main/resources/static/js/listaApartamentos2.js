@@ -2,7 +2,7 @@ $(document).ready(function() {
     $.ajax({
       	url: "https://pisoswebserver.herokuapp.com/api/apartment/",
 		success: function(data){		
-			localStorage.setItem("apartmentId", data.apartmentId);
+			sessionStorage.setItem("apartmentId", data.apartmentId);
 										
 			let output = data.map(i => "<div class='col-lg-4 col-md-6'>"+
                     "<div class='room-item'>"+
