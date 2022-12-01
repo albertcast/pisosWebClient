@@ -108,7 +108,7 @@
 	    		}).then(function(datos){
 	    			$.ajax({
 						type:"PUT",
-						url: "https://pisoswebserver.herokuapp.com/api/apartment/updateFlat",
+						url: "https://pisoswebserver.herokuapp.com/api/apartment/updateFlat",						
 						data:{
 							id:sessionStorage.apartmentId,
 							title:datos.title,
@@ -126,29 +126,61 @@
 	    	})};
 			
 			
-   	function addComment(){
-   		$.ajax({
-   			type:"POST",
-   			url: "https://pisoswebserver.herokuapp.com/api/comment/addComment",
-   			
-   			data:{
-   				d:new Date(),
-   		   		ye:new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d),
-   		   		mo:new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d),
-   		   		da:new  Intl.DateTimeFormat('en', { day: '2-digit' }).format(d),
-   				user:sessionStorage.userId,
-   				apartment:sessionStorage.apartmentId,
-   				text:document.getElementById("textoCom").value,
-   				rating:document.getElementById("valorar").value,
-   				date:`${da}-${mo}-${ye}`,
-   				
-   			},
-   			success: function(data){			
-   				 alert("SE HA AÑADIDO EL COMENTARIO CORRECTAMENTE");
-   			}
-   				
-   		});
-   	}	
+   		
+   	
+	function addComment(){
+		let date = new Date()
+
+    	let day = date.getDate()
+    	let month = date.getMonth() + 1
+    	let year = date.getFullYear()
+		let fecha
+    	if(month < 10){
+    		if(day < 10){
+	    		fecha = year + '-0' + month + '-0' + day
+	    		
+			} else {
+	    		fecha = year + '-0' + month + '-' + day
+	    		
+			}
+    	}else{
+    		if(day < 10){
+	    		fecha= year + '-' + month + '-0' + day
+	    		
+
+			} else {
+	    		fecha= year + '-' + month + '-' + day
+	    		
+
+			}
+    	}
+		$.ajax({
+			type:"POST",
+			url: "https://pisoswebserver.herokuapp.com/api/comment/addComment",
+			data:{
+				user:sessionStorage.userId,
+				apartment:sessionStorage.apartmentId,
+				text:document.getElementById("textoCom").value,
+				rating:document.getElementById("valorar").value,
+				date:fecha,
+			},
+			success: function(data){			
+				 alert("SE HA AÑADIDO LA VIVIENDA CORRECTAMENTE");
+			}
+		});
+	}
+	
+	function borrar(id){
+		$.ajax({
+				type:"DELETE",
+				url: "https://pisoswebserver.herokuapp.com/api/comment/delete/"+id,
+				success: function(msg){
+					alert("SE HA ELIMINADO EL COMENTARIO CORRECTAMENTE");
+				}
+			}).then(function(datos){
+				location.href = "room-details.html";
+			})
+	}
 	
 	
 	
