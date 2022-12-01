@@ -129,17 +129,24 @@
    	function addComment(){
    		$.ajax({
    			type:"POST",
-   			url: "https://pisoswebserver.herokuapp.com/api/apartment/addComment",
+   			url: "https://pisoswebserver.herokuapp.com/api/comment/addComment",
+   			
    			data:{
+   				d:new Date(),
+   		   		ye:new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d),
+   		   		mo:new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d),
+   		   		da:new  Intl.DateTimeFormat('en', { day: '2-digit' }).format(d),
    				user:sessionStorage.userId,
    				apartment:sessionStorage.apartmentId,
    				text:document.getElementById("textoCom").value,
    				rating:document.getElementById("valorar").value,
-   				date:new Date(),
+   				date:`${da}-${mo}-${ye}`,
+   				
    			},
    			success: function(data){			
    				 alert("SE HA AÑADIDO EL COMENTARIO CORRECTAMENTE");
    			}
+   				
    		});
    	}	
 	
