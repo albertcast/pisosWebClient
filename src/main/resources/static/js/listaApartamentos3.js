@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $.ajax({
-      	url: "https://pisoswebserver.herokuapp.com/api/apartment/",
+      	url: "http://localhost:8081/api/apartment/",
 		success: function(data){	
 			data.map(i => {
 				if(i.owner == sessionStorage.userId){

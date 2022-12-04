@@ -104,7 +104,6 @@
     /*------------------
 		Nice Select
 	--------------------*/
-	console.log("HOLA2");
     $("select").niceSelect();
 
 })(jQuery);	

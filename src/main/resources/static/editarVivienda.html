@@ -60,7 +60,7 @@
 	$(document).ready(function() {
 	    $.ajax({
 	    	type:"GET",
-	      	url: "https://pisoswebserver.herokuapp.com/api/apartment/"+sessionStorage.apartmentId,
+	      	url: "http://localhost:8081/api/apartment/"+sessionStorage.apartmentId,
 	    }).then(function(data) {
 	    	let date = new Date(data.date)
 
@@ -95,7 +95,7 @@
 	function addFlat(){
 		$.ajax({
 			type:"PUT",
-			url: "https://pisoswebserver.herokuapp.com/api/apartment/updateFlat",
+			url: "http://localhost:8081/api/apartment/updateFlat",
 			data:{
 				id:sessionStorage.apartmentId,
 				title:document.getElementById("title").value,
@@ -106,7 +106,7 @@
 				price:document.getElementById("price").value,
 			},
 			success: function(data){			
-				 alert("SE HA EDITADO LA VIVIENDA CORRECTAMENTE");
+				 //alert("SE HA EDITADO LA VIVIENDA CORRECTAMENTE");
 			}
 		});
 	}
@@ -114,9 +114,9 @@
 	var borrar = function(){
 		$.ajax({
 			type:"DELETE",
-			url: "https://pisoswebserver.herokuapp.com/api/apartment/"+sessionStorage.apartmentId,
+			url: "http://localhost:8081/api/apartment/"+sessionStorage.apartmentId,
 			success: function(msg){
-				alert("SE HA ELIMINADO LA VIVIENDA CORRECTAMENTE");
+				//alert("SE HA ELIMINADO LA VIVIENDA CORRECTAMENTE");
 			}
 		}).then(function(datos){
 			location.href = "misViviendas.html";

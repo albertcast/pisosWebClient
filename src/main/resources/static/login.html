@@ -38,7 +38,7 @@
           
           $.get("/user", function(data) {
         	$.ajax({
-      	    	url: "https://pisoswebserver.herokuapp.com/api/user/accountAuthentication",
+      	    	url: "http://localhost:8081/api/user/accountAuthentication",
       	    	data:{accountAuthentication:data.accountAuthentication},
 	        	success: function(msg){
 		             //alert(data.accountAuthentication);
@@ -47,7 +47,7 @@
       	    	if(datos == null){
 					$.ajax({
 						type: "POST",
-						url: "https://pisoswebserver.herokuapp.com/api/user/addUser",
+						url: "http://localhost:8081/api/user/addUser",
 						data:{email:data.email, name:data.name, lastname:data.lastname, age:data.age, accountAuthentication:data.accountAuthentication},
 						success: function(msg){
 				             //alert(data.accountAuthentication);

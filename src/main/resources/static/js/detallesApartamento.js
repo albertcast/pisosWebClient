@@ -1,6 +1,6 @@
 $(document).ready(function(id) {
     $.ajax({
-        url: "https://pisoswebserver.herokuapp.com/api/apartment/"+window.sessionStorage.apartmentId
+        url: "http://localhost:8081/api/apartment/"+window.sessionStorage.apartmentId
     }).then(function(data) {
        	$('.apartment-title').append(data.title);
        	$('.apartment-place').append(data.place);

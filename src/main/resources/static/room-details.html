@@ -53,7 +53,7 @@
 	<script src="../js/detallesApartamento.js"></script>
     <script>
     	$.ajax({
-    		url: "https://pisoswebserver.herokuapp.com/api/apartment/"+window.sessionStorage.apartmentId
+    		url: "http://localhost:8081/api/apartment/"+window.sessionStorage.apartmentId
     	}).then(function(data) {
     		let date = new Date(data.date)
 
@@ -94,7 +94,7 @@
 		var reservar = function(){
 			$.ajax({
 				type:"POST",
-	    		url: "https://pisoswebserver.herokuapp.com/api/booking/addBooking",
+	    		url: "http://localhost:8081/api/booking/addBooking",
 	    		data:{ 
 	    			guest:sessionStorage.userId,
 	    			arrivalDate:document.getElementById("date-in").value, 
@@ -104,11 +104,11 @@
 	    	}).then(function(data) {
 	    		$.ajax({
 	    			type:"GET",
-	    	        url: "https://pisoswebserver.herokuapp.com/api/apartment/"+window.sessionStorage.apartmentId
+	    	        url: "http://localhost:8081/api/apartment/"+window.sessionStorage.apartmentId
 	    		}).then(function(datos){
 	    			$.ajax({
 						type:"PUT",
-						url: "https://pisoswebserver.herokuapp.com/api/apartment/updateFlat",						
+						url: "http://localhost:8081/api/apartment/updateFlat",						
 						data:{
 							id:sessionStorage.apartmentId,
 							title:datos.title,
@@ -156,7 +156,7 @@
     	}
 		$.ajax({
 			type:"POST",
-			url: "https://pisoswebserver.herokuapp.com/api/comment/addComment",
+			url: "http://localhost:8081/api/comment/addComment",
 			data:{
 				user:sessionStorage.userId,
 				apartment:sessionStorage.apartmentId,
@@ -165,7 +165,7 @@
 				date:fecha,
 			},
 			success: function(data){			
-				 alert("SE HA AÑADIDO LA VIVIENDA CORRECTAMENTE");
+				 //alert("SE HA AÑADIDO LA VIVIENDA CORRECTAMENTE");
 			}
 		});
 	}
@@ -173,9 +173,9 @@
 	function borrar(id){
 		$.ajax({
 				type:"DELETE",
-				url: "https://pisoswebserver.herokuapp.com/api/comment/delete/"+id,
+				url: "http://localhost:8081/api/comment/delete/"+id,
 				success: function(msg){
-					alert("SE HA ELIMINADO EL COMENTARIO CORRECTAMENTE");
+					//alert("SE HA ELIMINADO EL COMENTARIO CORRECTAMENTE");
 				}
 			}).then(function(datos){
 				location.href = "room-details.html";

@@ -2,7 +2,6 @@
 function estrellas(rating){
 	let i
 	let output=""
-	alert(rating)
 	for(i=0;i<rating;i++){
 		output+="<i class='icon_star'></i>";
 	}
@@ -26,9 +25,9 @@ function botonBorrar(id,idComentario){
 function borrar(id){
 	$.ajax({
 			type:"DELETE",
-			url: "https://pisoswebserver.herokuapp.com/api/comment/delete/"+id,
+			url: "http://localhost:8081/api/comment/delete/"+id,
 			success: function(msg){
-				alert("SE HA ELIMINADO EL COMENTARIO CORRECTAMENTE");
+				//alert("SE HA ELIMINADO EL COMENTARIO CORRECTAMENTE");
 			}
 		}).then(function(datos){
 			location.href = "room-details.html";
@@ -43,13 +42,13 @@ $(document).ready(function() {
  
     $.ajax({
         type:"GET",
-          url: "https://pisoswebserver.herokuapp.com/api/comment/apartment/"+window.sessionStorage.apartmentId,
+          url: "http://localhost:8081/api/comment/apartment/"+window.sessionStorage.apartmentId,
         success: function(data){
 
             data.map(i => (
                 $.ajax({
                     type:"GET",
-                       url: "https://pisoswebserver.herokuapp.com/api/user/"+i.user,
+                       url: "http://localhost:8081/api/user/"+i.user,
                 }).then(function(datos){
                     let output = "<div class='review-item'>"+
                             "<div class='ri-pic'>"+

@@ -38,7 +38,7 @@
 	function addFlat(){
 		$.ajax({
 			type:"POST",
-			url: "https://pisoswebserver.herokuapp.com/api/apartment/addFlat",
+			url: "http://localhost:8081/api/apartment/addFlat",
 			data:{
 				title:document.getElementById("title").value,
 				place:document.getElementById("place").value,
@@ -49,7 +49,7 @@
 				price:document.getElementById("price").value,
 			},
 			success: function(data){			
-				 alert("SE HA AÑADIDO LA VIVIENDA CORRECTAMENTE");
+				 //alert("SE HA AÑADIDO LA VIVIENDA CORRECTAMENTE");
 			}
 		});
 	}
