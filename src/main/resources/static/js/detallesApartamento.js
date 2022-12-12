@@ -8,5 +8,6 @@ $(document).ready(function(id) {
        	$('.apartment-date').append(data.date.substring(0,10));
         $('.apartment-capacity').append(data.capacity);
 		$('.apartment-price').prepend(data.price);
+		document.getElementById("imageShow").setAttribute("src", data.image)
     });
 });	

@@ -36,23 +36,19 @@
 	<script>
 	
 	function addFlat(){
-		var formData = new FormData();
-		formData.append("title", document.getElementById("title").value)
-		formData.append("place", document.getElementById("place").value)
-		formData.append("description", document.getElementById("description").value)
-		formData.append("date", document.getElementById("date").value)
-		formData.append("owner", sessionStorage.userId)
-		formData.append("capacity", document.getElementById("capacity").value)
-		formData.append("price", document.getElementById("price").value)
-		formData.append("image", document.getElementById("fileId").file)
-		
-		
 		$.ajax({
 			type:"POST",
 			url: "http://localhost:8081/api/apartment/addFlat",
-			 enctype: 'multipart/form-data',
-		        processData: false,
-			data:formData,
+			data:{
+				title:document.getElementById("title").value,
+				place:document.getElementById("place").value,
+				description:document.getElementById("description").value,
+				date:document.getElementById("date").value,
+				owner:sessionStorage.userId,
+				capacity:document.getElementById("capacity").value,
+				price:document.getElementById("price").value,
+				image:document.getElementById("image").value,
+			},
 			success: function(data){	
 				document.location = "misViviendas.html"
 				 //alert("SE HA AÑADIDO LA VIVIENDA CORRECTAMENTE");
@@ -130,15 +126,16 @@
                             </p>
                             <p>Fecha de disponibilidad: <input type="date" id="date" placeholder="01/01/1999"></p>
                             <div>
-                            <form method="POST" enctype="multipart/form-data" action="javascript:addFlat()">
-                            
-                           		<input type="file" id="fileId">
-                           		
-                           		<div class="form-group"> <!-- Submit Button -->
+                            <label for="fileId">Imagen </label>
+                            <input type="file" id="fileId">
+								<form action="javascript:addFlat()">
+									
+									<div class="form-group"> <!-- Submit Button -->
 								        <button type="submit" class="btn btn-primary">AÑADIR</button>
 								    </div>
-                            </form>
 								
+									
+								</form>
 							</div>
                         </div>
                     </div>
