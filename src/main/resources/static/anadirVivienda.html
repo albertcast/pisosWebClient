@@ -44,15 +44,15 @@
 		formData.append("owner", sessionStorage.userId)
 		formData.append("capacity", document.getElementById("capacity").value)
 		formData.append("price", document.getElementById("price").value)
-		formData.append("image", document.getElementById("fileId").file)
+		formData.append("image", document.getElementById("fileId").files[0])
 		
 		
 		$.ajax({
 			type:"POST",
 			url: "http://localhost:8081/api/apartment/addFlat",
-			 enctype: 'multipart/form-data',
-		        processData: false,
-			data:formData,
+		    processData: false,
+			contentType: false,
+		    data:formData,
 			success: function(data){	
 				document.location = "misViviendas.html"
 				 //alert("SE HA AÑADIDO LA VIVIENDA CORRECTAMENTE");
