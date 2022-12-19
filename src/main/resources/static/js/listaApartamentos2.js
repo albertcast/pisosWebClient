@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $.ajax({
-      	url: "http://localhost:8081/api/apartment/",
+      	url: sessionStorage.url+"/api/apartment/",
 		success: function(data){		
 			sessionStorage.setItem("apartmentId", data.apartmentId);
 										

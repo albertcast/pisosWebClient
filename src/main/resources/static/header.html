@@ -22,7 +22,7 @@
           
           $.get("/user", function(data) {
         	$.ajax({
-      	    	url: "http://localhost:8081/api/user/accountAuthentication",
+      	    	url: sessionStorage.url+"/api/user/usersByAccountAuthentication",
       	    	data:{accountAuthentication:data.accountAuthentication},
 	        	success: function(msg){
 		             //alert(data.accountAuthentication);
@@ -31,7 +31,7 @@
 				if(datos == null){
 					$.ajax({
 						type: "POST",
-						url: "http://localhost:8081/api/user/addUser",
+						url: sessionStorage.url+"/api/user/",
 						data:{email:data.email, name:data.name, lastname:data.lastname, age:data.age, accountAuthentication:data.accountAuthentication},
 						success: function(msg){
 				             //alert(data.accountAuthentication);

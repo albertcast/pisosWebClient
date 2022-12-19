@@ -22,10 +22,13 @@ function botonBorrar(id,idComentario){
 	else return ""
 }
 
-function borrar(id){
+function borrar(commentId){
 	$.ajax({
 			type:"DELETE",
-			url: "http://localhost:8081/api/comment/delete/"+id,
+			url: sessionStorage.url+"/api/comment/",
+			data:{
+				id:commentId,
+			},
 			success: function(msg){
 				//alert("SE HA ELIMINADO EL COMENTARIO CORRECTAMENTE");
 			}
@@ -42,13 +45,16 @@ $(document).ready(function() {
  
     $.ajax({
         type:"GET",
-          url: "http://localhost:8081/api/comment/apartment/"+window.sessionStorage.apartmentId,
+        url: sessionStorage.url+"/api/comment/commentsByApartment/",
+		data:{
+			id:sessionStorage.apartmentId
+		},
         success: function(data){
 
             data.map(i => (
                 $.ajax({
                     type:"GET",
-                       url: "http://localhost:8081/api/user/"+i.user,
+                       url: sessionStorage.url+"/api/user/"+i.user,
                 }).then(function(datos){
                     let output = "<div class='review-item'>"+
                             "<div class='ri-pic'>"+
