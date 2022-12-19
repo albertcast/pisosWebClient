@@ -93,21 +93,26 @@
 	});
 	
 	function addFlat(){
+		
+		var formData = new FormData();
+		formData.append("id", sessionStorage.apartmentId)
+		formData.append("title", document.getElementById("title").value)
+		formData.append("place", document.getElementById("place").value)
+		formData.append("description", document.getElementById("description").value)
+		formData.append("date", document.getElementById("date").value)
+		formData.append("capacity", document.getElementById("capacity").value)
+		formData.append("price", document.getElementById("price").value)
+		formData.append("image", document.getElementById("fileId").files[0])
+		
 		$.ajax({
 			type:"PUT",
 			url: sessionStorage.url+"/api/apartment/",
-			data:{
-				id:sessionStorage.apartmentId,
-				title:document.getElementById("title").value,
-				place:document.getElementById("place").value,
-				description:document.getElementById("description").value,
-				date:document.getElementById("date").value,
-				capacity:document.getElementById("capacity").value,
-				price:document.getElementById("price").value,
-			},
+		    processData: false,
+			contentType: false,
+		    data:formData,
 			success: function(data){		
+				alert(document.getElementById("fileId").files[0]);
 				document.location = "misViviendas.html"
-				 //alert("SE HA EDITADO LA VIVIENDA CORRECTAMENTE");
 			}
 		});
 	}
@@ -169,7 +174,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="room-details-item">
-                        <img src="img/room/room-details.jpg" alt="">
+                        <img id="imageShow" alt="">
                         <div class="rd-text">
                             <div class="rd-title">
                                 <h3><input type="text" id="title" placeholder="Flat"></h3>
@@ -201,8 +206,11 @@
                             <p><input type="text" id="description" placeholder="Apartment, suite, unit, building, floor, etc." size="100">
                             </p>
                             <p>Fecha de disponibilidad: <input type="date" id="date" placeholder="01/01/1999"></p>
+                            
+                            
                             <div>
-								<form action="javascript:addFlat()">
+								<form method="POST" enctype="multipart/form-data" action="javascript:addFlat()">
+									<input type="file" id="fileId">
 									
 									<div class="form-group"> <!-- Submit Button -->
 								        <button type="submit" class="btn btn-primary">EDITAR</button>
@@ -214,47 +222,6 @@
                         </div>
                     </div>
                     
-                    <div class="rd-reviews">
-                        <h4>Reseñas</h4>
-                        <div class="review-item">
-                            <div class="ri-pic">
-                                <img src="img/room/avatar/avatar-1.jpg" alt="">
-                            </div>
-                            <div class="ri-text">
-                                <span>27 Aug 2019</span>
-                                <div class="rating">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star-half_alt"></i>
-                                </div>
-                                <h5>Brandon Kelley</h5>
-                                <p>Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                                    adipisci velit, sed quia non numquam eius modi tempora. incidunt ut labore et dolore
-                                    magnam.</p>
-                            </div>
-                        </div>
-                        <div class="review-item">
-                            <div class="ri-pic">
-                                <img src="img/room/avatar/avatar-2.jpg" alt="">
-                            </div>
-                            <div class="ri-text">
-                                <span>27 Aug 2019</span>
-                                <div class="rating">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star-half_alt"></i>
-                                </div>
-                                <h5>Brandon Kelley</h5>
-                                <p>Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                                    adipisci velit, sed quia non numquam eius modi tempora. incidunt ut labore et dolore
-                                    magnam.</p>
-                            </div>
-                        </div>
-                    </div>
                     
                     
                 </div>
