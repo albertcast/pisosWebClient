@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    
+     <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+    <script type="text/javascript"> 
+    	$(function(){
+			$("#header").load("header.html"); 
+		    $("#offCanvas").load("offCanvas.html"); 
+		    $("#footer").load("footer.html"); 
+		    $("#search").load("search.html"); 
+		 });
+	</script>
+	<script>
+	$(document).ready(function() {
+		$.ajax({
+			type:"GET",
+			url: sessionStorage.url+"/api/user/"+sessionStorage.userId,
+			success: function(data){
+				document.getElementById("imageShow").setAttribute("src", data.image);
+			}
+			
+			
+			
+		})
+	});
+	
+	
+	</script>
+
+</head>
+<body>
+	<!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    <!-- Offcanvas Menu Section Begin -->
+    <div id="offCanvas"></div>
+    <!-- Offcanvas Menu Section End -->
+    <!-- Header Section Begin -->
+    <div id="header"></div>    
+    <!-- Header End -->
+	
+	<!-- Room Details Section Begin -->
+    <section class="room-details-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="room-details-item">
+                        <img id="imageShow" alt="">
+                        <div class="rd-text">
+                            <div class="rd-title">
+                                <h3 class="apartment-title"></h3>
+                                <div class="rdt-right">
+                                    <div class="rating">
+                                        <i class="icon_star"></i>
+                                        <i class="icon_star"></i>
+                                        <i class="icon_star"></i>
+                                        <i class="icon_star"></i>
+                                        <i class="icon_star-half_alt"></i>
+                                    </div>
+                                    <a href="#">Booking Now</a>
+                                </div>
+                            </div>
+                            <h2 class="apartment-price">€<span>/Por noche</span></h2>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="r-o">Ubicación:</td>
+                                        <td class="apartment-place"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="r-o">Capacidad:</td>
+                                        <td class="apartment-capacity"></td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                            <p class="apartment-description">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="rd-reviews">
+                        <h4>Reseñas</h4>
+                        	<div id="tablaComment"></div>
+                        
+                        
+                    </div>
+                    <div class="review-add">
+                        <h4>Añadir reseña</h4>
+                        <form action="#" class="ra-form">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div>
+                                        <h5>Valoración:</h5>
+                                        <input type="number" min="1" max="5" id="valorar" placeholder="Introduce un número del 1 al 5">                                       
+                                    </div>
+                                    <textarea id="textoCom" placeholder="Tu reseña"></textarea>
+                                    <button type="submit" onclick="addComment()">Publicar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="room-booking">
+                        <h3>Tu reserva</h3>
+                        <form action="javascript:reservar()">
+                            <div class="check-date">
+                                <label for="date-in">Check In:</label>
+                                <input type="date" id="date-in" oninput="newMin()">
+                            </div>
+                            <div class="check-date">
+                                <label for="date-out">Check Out:</label>
+                                <input type="date" id="date-out" >
+                            </div>
+
+                            <div style="width:450px">
+							     <label>Huéspedes:</label>
+                                 <input id="capac" type="number" min="1"  placeholder="1">
+							</div>
+                            
+                            <button type="submit">Reservar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+	<!-- Footer Section Begin -->
+    <div id="footer"></div>
+    <!-- Footer Section End -->
+
+    <!-- Search model Begin -->
+    <div id="search"></div>
+    <!-- Search model end -->
+</body>
+
+</html>
