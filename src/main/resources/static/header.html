@@ -8,6 +8,8 @@
           $
               .ajaxSetup({
                 beforeSend : function(xhr, settings) {
+				  sessionStorage.url = "http://localhost:8081";
+
                   if (settings.type == 'POST' || settings.type == 'PUT'
                       || settings.type == 'DELETE') {
                     if (!(/^http:.*/.test(settings.url) || /^https:.*/
@@ -19,41 +21,29 @@
                   }
                 }
               });
-          
           $.get("/user", function(data) {
-        	$.ajax({
-      	    	url: sessionStorage.url+"/api/user/usersByAccountAuthentication",
-      	    	data:{accountAuthentication:data.accountAuthentication},
-	        	success: function(msg){
-		             //alert(data.accountAuthentication);
-		        }
-      	    }).then(function(datos) {
-				if(datos == null){
-					$.ajax({
-						type: "POST",
-						url: sessionStorage.url+"/api/user/",
-						data:{email:data.email, name:data.name, lastname:data.lastname, age:data.age, accountAuthentication:data.accountAuthentication},
-						success: function(msg){
-				             //alert(data.accountAuthentication);
-				        }
-					}).then(function(d){
-						sessionStorage.userId = d.usuarioId;
-		      	    	sessionStorage.email = d.email;
-						sessionStorage.name = d.nombre;
-						sessionStorage.lastname = d.apellidos;
-						sessionStorage.age = d.edad;
-						sessionStorage.avatar = data.avatar_url;
-					})
-				} else {
-					sessionStorage.userId = datos.usuarioId;
-	      	    	sessionStorage.email = datos.email;
-					sessionStorage.name = datos.nombre;
-					sessionStorage.lastname = datos.apellidos;
-					sessionStorage.age = datos.edad;
-					sessionStorage.avatar = data.avatar_url;
-				}
-					
-      	    });
+          	$.ajax({
+        	    	url: sessionStorage.url+"/api/user/usersByAccountAuthentication",
+        	    	data:{accountAuthentication:data.accountAuthentication},
+  	        	success: function(msg){
+  		             //alert(data.string);
+  		        }
+        	    }).then(function(datos) {
+        	    	if(datos == null){
+  					$.ajax({
+  						type: "POST",
+  						url: sessionStorage.url+"/api/user/",
+  						data:{email:data.email, name:data.name, lastname:data.lastname, age:data.age, accountAuthentication:data.accountAuthentication, image:data.avatar_url},
+  						success: function(msg){
+  				             //alert(data.accountAuthentication);
+  				        }
+  					}).then(function(d){
+  						sessionStorage.userId = d.usuarioId;				
+  					})
+  				} else {
+  					sessionStorage.userId = datos.usuarioId;
+  				}	
+        	    });
         	
             $("#user").html(data.name);
             $(".unauthenticated").hide();
@@ -109,6 +99,8 @@
 					                    <ul>
 					                        <li><a href="misViviendas.html">Mis viviendas</a></li>
 					                        <li><a href="#">Mensajes</a></li>
+					                        <li><a href="miPerfil.html">Mi perfil</a></li>
+					                        
 					                        <li><a href="javascript:logout()">Cerrar sesi�n</a></li>
 					                    </ul>
 					                </div>

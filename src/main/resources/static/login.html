@@ -43,30 +43,22 @@
       	    	url: sessionStorage.url+"/api/user/usersByAccountAuthentication",
       	    	data:{accountAuthentication:data.accountAuthentication},
 	        	success: function(msg){
-		             //alert(data.accountAuthentication);
+		             //alert(data.string);
 		        }
       	    }).then(function(datos) {
       	    	if(datos == null){
 					$.ajax({
 						type: "POST",
 						url: sessionStorage.url+"/api/user/",
-						data:{email:data.email, name:data.name, lastname:data.lastname, age:data.age, accountAuthentication:data.accountAuthentication},
+						data:{email:data.email, name:data.name, lastname:data.lastname, age:data.age, accountAuthentication:data.accountAuthentication, image:data.avatar_url},
 						success: function(msg){
 				             //alert(data.accountAuthentication);
 				        }
 					}).then(function(d){
-						sessionStorage.userId = d.usuarioId;
-		      	    	sessionStorage.email = d.email;
-						sessionStorage.name = d.nombre;
-						sessionStorage.lastname = d.apellidos;
-						sessionStorage.age = d.edad;				
+						sessionStorage.userId = d.usuarioId;				
 					})
 				} else {
 					sessionStorage.userId = datos.usuarioId;
-	      	    	sessionStorage.email = datos.email;
-					sessionStorage.name = data.string;
-					sessionStorage.lastname = datos.apellidos;
-					sessionStorage.age = datos.edad;
 				}	
       	    });
         	

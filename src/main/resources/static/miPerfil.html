@@ -40,7 +40,7 @@
 	$(document).ready(function() {
 		$.ajax({
 			type:"GET",
-			url: sessionStorage.url+"/api/user/"+sessionStorage.userId,
+			url:sessionStorage.url+"/api/user/"+sessionStorage.userId,
 			success: function(data){
 				document.getElementById("imageShow").setAttribute("src", data.image);
 			}
