@@ -102,7 +102,10 @@
 		formData.append("date", document.getElementById("date").value)
 		formData.append("capacity", document.getElementById("capacity").value)
 		formData.append("price", document.getElementById("price").value)
-		formData.append("image", document.getElementById("fileId").files[0])
+		var a = document.getElementById("fileId").files;
+		if(a.length > 0){
+			formData.append("image", document.getElementById("fileId").files[0])
+		}
 		
 		$.ajax({
 			type:"PUT",
@@ -111,7 +114,7 @@
 			contentType: false,
 		    data:formData,
 			success: function(data){		
-				alert(document.getElementById("fileId").files[0]);
+				//alert(document.getElementById("fileId").files[0]);
 				document.location = "misViviendas.html"
 			}
 		});

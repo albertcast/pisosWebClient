@@ -6,10 +6,10 @@ $(document).ready(function() {
 				if(i.owner == sessionStorage.userId){
 				document.getElementById("tablaApar").innerHTML += "<div class='col-lg-4 col-md-6'>"+
                     "<div class='room-item'>"+
-                        "<img src='img/room/room-1.jpg' alt=''>"+
+                        "<img src="+ i.image + " alt=''>"+
                         "<div class='ri-text'>"+
                             "<h4>"+i.title+"</h4>"+
-                            "<h3>"+i.price+"€<span>/Por noche</span></h3>"+
+                            "<h3>"+i.price+" €<span>/Por noche</span></h3>"+
                             "<table>"+
                                 "<tbody>"+
                                     "<tr>"+
