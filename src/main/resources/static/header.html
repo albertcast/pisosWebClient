@@ -38,17 +38,21 @@
   				             //alert(data.accountAuthentication);
   				        }
   					}).then(function(d){
-  						sessionStorage.userId = d.usuarioId;				
+  						sessionStorage.userId = d.usuarioId;
+  			            document.getElementById("avatar").setAttribute("src", d.image)
+
   					})
   				} else {
   					sessionStorage.userId = datos.usuarioId;
+  		            document.getElementById("avatar").setAttribute("src", datos.image)
+
   				}	
+        	    	
         	    });
         	
             $("#user").html(data.name);
             $(".unauthenticated").hide();
             $(".authenticated").show();
-            document.getElementById("avatar").setAttribute("src",  sessionStorage.avatar)
           });
           var logout = function() {
             $.post("/logout", function() {
@@ -129,6 +133,7 @@
                                     <li><a href="./viviendas.html">Viviendas</a></li>
                                     <li><a href="./about-us.html">Sobre nosotros</a></li>
                                     <li><a href="./contact.html">Contacto</a></li>
+                                    <li><a href="./externo.html">Otros</a></li>
                                 </ul>
                             </nav>
                             <div class="nav-right search-switch">
