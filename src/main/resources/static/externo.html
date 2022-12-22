@@ -70,7 +70,7 @@
 		function onMapClick(e) {
 		    popup
 		        .setLatLng(e.latlng)
-		        .setContent("You clicked the map at " + e.latlng.toString())
+		        .setContent("Posición: " + e.latlng.toString())
 		        .openOn(map);
 		}
 
@@ -101,7 +101,7 @@
 					map.panTo(new L.LatLng(lat, lon));
 
 					var marker = L.marker([lat, lon]);
-					marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+					marker.bindPopup(i.parada.nombreParada + "<br> Dirección: " + i.parada.direccion).openPopup();
 			        markers.addLayer(marker);
 
 				})
