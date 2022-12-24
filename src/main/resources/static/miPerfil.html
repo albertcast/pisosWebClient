@@ -39,7 +39,6 @@
 			$("#header").load("header.html"); 
 		    $("#offCanvas").load("offCanvas.html"); 
 		    $("#footer").load("footer.html"); 
-		    $("#search").load("search.html"); 
 		 });
 	</script>
 	<script>
@@ -49,6 +48,12 @@
 			url:sessionStorage.url+"/api/user/"+sessionStorage.userId,
 			success: function(data){
 				document.getElementById("imageShow").setAttribute("src", data.image);
+		        
+		        document.getElementById("name").value = data.nombre
+			    document.getElementById("lastname").value = data.apellidos
+				document.getElementById("email").value = data.email
+				document.getElementById("age").value = data.edad
+
 			}
 			
 			
@@ -62,6 +67,68 @@
 		window.location = "/editarVivienda.html";
 	};
 	</script>
+
+	<script>
+	function editar(){
+        document.getElementById("name").disabled = false
+        document.getElementById("lastname").disabled = false
+        document.getElementById("email").disabled = false
+        document.getElementById("age").disabled = false
+		document.getElementById("fileId").hidden = false
+		document.getElementById("guardarCambios").hidden = false
+		document.getElementById("cancelar").hidden = false
+		document.getElementById("editarPerfil").hidden = true
+
+	}
+	
+	function cancelar(){
+        document.getElementById("name").disabled = true
+        document.getElementById("lastname").disabled = true
+        document.getElementById("email").disabled = true
+        document.getElementById("age").disabled = true
+		document.getElementById("fileId").hidden = true
+		document.getElementById("guardarCambios").hidden = true
+		document.getElementById("cancelar").hidden = true
+		document.getElementById("editarPerfil").hidden = false
+
+	}
+	
+	function guardarCambios(){
+        document.getElementById("name").disabled = true
+        document.getElementById("lastname").disabled = true
+        document.getElementById("email").disabled = true
+        document.getElementById("age").disabled = true
+		document.getElementById("fileId").hidden = true
+		document.getElementById("guardarCambios").hidden = true
+		document.getElementById("cancelar").hidden = true
+		document.getElementById("editarPerfil").hidden = false
+		
+		var formData = new FormData();
+		formData.append("id", sessionStorage.userId)
+		formData.append("email", document.getElementById("email").value)
+		formData.append("name", document.getElementById("name").value)
+		formData.append("lastname", document.getElementById("lastname").value)
+		formData.append("age", document.getElementById("age").value)
+		var a = document.getElementById("fileId").files;
+		if(a.length > 0){
+			formData.append("image", document.getElementById("fileId").files[0])
+		}
+		$.ajax({
+			type:"PUT",
+			url:sessionStorage.url+"/api/user/",
+		    processData: false,
+			contentType: false,
+			data:formData,
+			success:function(data){
+				location.reload()
+			}
+		});
+		
+	}
+	
+	
+	</script>
+
 
 </head>
 <body>
@@ -88,22 +155,41 @@
                                 <h3 class="apartment-title"></h3>
                                 
                             </div>
-                            <h2 class="apartment-price">€<span>/Por noche</span></h2>
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td class="r-o">Ubicación:</td>
-                                        <td class="apartment-place"></td>
+                                        <td class="r-o">Nombre:</td>
+                                        <td><input class="editable" type="text" id="name" disabled></td>
                                     </tr>
                                     <tr>
-                                        <td class="r-o">Capacidad:</td>
-                                        <td class="apartment-capacity"></td>
+                                        <td class="r-o">Apellidos:</td>
+                                        <td><input class="editable" type="text" id="lastname" disabled></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="r-o">Email:</td>
+                                        <td><input class="editable" type="text" id="email" disabled></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="r-o">Edad:</td>
+                                        <td><input class="editable" type="number" id="age" disabled></td>
+                                    </tr>
+                                    <tr>
+                                       
+                                        <td><input class="editable" type="file" id="fileId" hidden=true></td>
                                     </tr>
                                     
                                 </tbody>
                             </table>
-                            <p class="apartment-description">
-                            </p>
+                            <form action="javascript:editar()">
+                            <input id="editarPerfil" type="submit" value="Editar perfil">
+                            </form>
+                            <form action="javascript:guardarCambios()">
+                            <input id="guardarCambios" class="btn btn-primary" type="submit" value="Guardar cambios" hidden=True>
+                            </form>
+                            <form action="javascript:cancelar()">
+                            <input id="cancelar" class="btn btn-danger" type="submit" value="Cancelar" hidden=True>
+                            </form>
+
                         </div>
                     </div>
                     <div class="rd-reviews">
@@ -127,9 +213,7 @@
     <div id="footer"></div>
     <!-- Footer Section End -->
 
-    <!-- Search model Begin -->
-    <div id="search"></div>
-    <!-- Search model end -->
+
 </body>
 
 </html>
