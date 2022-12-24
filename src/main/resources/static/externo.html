@@ -170,7 +170,7 @@
 					mapCercano.panTo(new L.LatLng(lat, lon));
 
 					var marker = L.marker([lat, lon]);
-					marker.bindPopup(i.parada.nombreParada + "<br> Dirección: " + i.parada.direccion).openPopup();
+					marker.bindPopup(i.parada.nombreParada + "<br> Dirección: " + i.parada.direccion + "<br> Linea: " + i.linea).openPopup();
 			        markers.addLayer(marker);
 
 				})
@@ -203,7 +203,7 @@
                         <div class="bt-option">
                             <form action="javascript:linea()">
 								<label for="lineaId">Línea: </label>
-								<input type="number" min=1 max=11 id="lineaId">
+								<input type="number" min=1 id="lineaId">
 								<input type="submit"> 
 							</form>
                         </div>
