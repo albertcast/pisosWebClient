@@ -58,7 +58,7 @@ public class PisosWebClientApplication  {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
 		.authorizeRequests(a -> a
-			.antMatchers("/login.html", "/error", "/webjars/**").permitAll()
+			.antMatchers("/login.html", "/error", "/webjars/**", "/css/**", "/img/**").permitAll()
 			.anyRequest().authenticated()
 		)
 		.exceptionHandling(e -> e
