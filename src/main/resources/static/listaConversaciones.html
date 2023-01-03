@@ -35,33 +35,74 @@
 		    $("#offCanvas").load("offCanvas.html"); 
 		    $("#footer").load("footer.html"); 
 		 });
+
     	
-    	
-    	$(document).ready(function(){
+    	/* $(document).ready(function() {
+    	    $.ajax({
+    	      	url: sessionStorage.url+"/api/apartment/",
+    			success: function(data){		
+    				sessionStorage.setItem("apartmentId", data.apartmentId);	
+    				let output = data.map(i => "<tr class='clickable' onclick='sendToDetalles("+ '"'+ i.id + '"' + ")'><th scope='row'>" + i.title + "</th><td>" + i.place
+    											+ "</td><td>" + i.description+ "</td><td>" + i.date + "</td></tr>").join('');
+    				document.getElementById("tablaAparment").innerHTML += output;
+    			}
+    	    })
+    	});	 */
+
+    	function buscarUsuario(){
     		$.ajax({
-    			url:sessionStorage.url+"/api/user/messagesBetweenUsers",
+    			url:sessionStorage.url+"/api/user/usersByName",
     			data:{
-    				firstUserId:sessionStorage.userId,
-    				secondUserId:sessionStorage.receiver,
+    				name:document.getElementById("searchUserText").value,
     			},
-    			success:function(data){
-    				let output = data.map(i => "<tr><td>" + i.sender+ "</td><td>" + i.receiver
-							+ "</td><td>" + i.content + "</td></tr>").join('');
+    			success: function(data){
+    				let output = data.map(i => "<tr class='clickable' onclick='sendToMensajes("+ '"'+ i.id + '"' + ")'><td>" + i.email + "</td><td>" + i.nombre 
+							+ "</td><td>" + i.apellidos + "</td><td>" + i.edad + "</td></tr>").join('');
 					document.getElementById("tablaUser").innerHTML = "<tr ><th>Email</th><th>Name</th><th>Lastname</th><th>Age</th></tr>"+ output;
     			}
-    			
-    			
-    			
     		})
     		
     		
-    		
-    		
-    		
-    	})
+    	}
+    	
+    	function sendToMensajes(id){
+    		sessionStorage.receiver = id;
+    		location.href = "listaMensajes.html"
+    	}
+
     	
     	
-	</script>
+    </script>
+    
+    <style>
+    	#searchForm {
+    		margin:auto;
+    		width:50%;
+    	
+    	}
+		#tablaUser {
+		  font-family: Arial, Helvetica, sans-serif;
+		  border-collapse: collapse;
+		  width: 100%;
+		}
+		
+		#tablaUser td, #tablaUser th {
+		  border: 1px solid #ddd;
+		  padding: 8px;
+		}
+		
+		#tablaUser tr:nth-child(even){background-color: #f2f2f2;}
+		
+		#tablaUser tr:hover {background-color: #ddd;}
+		
+		#tablaUser th {
+		  padding-top: 12px;
+		  padding-bottom: 12px;
+		  text-align: left;
+		  background-color: #F28C28;
+		  color: white;
+		}
+	</style>
 
 </head>
 
@@ -76,8 +117,25 @@
     <!-- Header Section Begin -->
     <div id="header"></div>    
     <!-- Header End -->
-	<div id="tablaMensajes"></div>
-
+    <div id="searchForm">
+	<form action="javascript:buscarUsuario()">
+		<label for="searchUser">Buscar usuario</label>
+		<input type="text" id="searchUserText">
+		<input type="submit" value="Buscar">
+	
+	</form>
+	</div>
+	<table id="tablaUser">
+		<tr>
+		   <th>Email</th>
+		   <th>Name</th>
+		   <th>Lastname</th>
+		   <th>Age</th>
+		</tr>
+		
+	</table>
+	
+	
 	<!-- Footer Section Begin -->
     <div id="footer"></div>
     <!-- Footer Section End -->
