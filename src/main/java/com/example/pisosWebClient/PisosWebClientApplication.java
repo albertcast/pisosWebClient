@@ -25,6 +25,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,7 +36,7 @@ public class PisosWebClientApplication  {
 	
 	
 	@GetMapping("/user")
-    public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
+    public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal, @CookieValue(name="JSESSIONID") String session) {
 		if(principal!= null) {
 			Map<String,Object> mapa;
 			mapa = new HashMap<String, Object>();
@@ -46,7 +47,7 @@ public class PisosWebClientApplication  {
 			mapa.put("age", 0);
 			mapa.put("avatar_url", principal.getAttribute("avatar_url"));
 			mapa.put("string", principal.getAttributes().toString());
-
+			mapa.put("token", session);
 
 			return mapa;
 		}
