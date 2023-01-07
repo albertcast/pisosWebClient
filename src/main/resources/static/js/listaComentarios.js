@@ -22,20 +22,7 @@ function botonBorrar(id,idComentario){
 	else return ""
 }
 
-function borrar(commentId){
-	$.ajax({
-			type:"DELETE",
-			url: sessionStorage.url+"/api/comment/",
-			data:{
-				id:commentId,
-			},
-			success: function(msg){
-				//alert("SE HA ELIMINADO EL COMENTARIO CORRECTAMENTE");
-			}
-		}).then(function(datos){
-			location.href = "room-details.html";
-		})
-}
+
 
 
 

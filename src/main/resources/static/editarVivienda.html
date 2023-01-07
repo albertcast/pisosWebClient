@@ -43,7 +43,17 @@
     <script src="js/jquery.slicknav.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+	     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+	     crossorigin=""/>	 
+	<!-- Make sure you put this AFTER Leaflet's CSS -->
+	 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+	     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+	     crossorigin=""></script>
 	
+	
+	<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+	 <script src="js/leaflet.markercluster.js"></script>
 	<script type="text/javascript"> 
     	$(function(){
 			$("#header").load("header.html"); 
@@ -55,8 +65,37 @@
 	
  	
 	<script>
-	
+	var map;
 	$(document).ready(function() {
+		//container
+		//map = L.map('map').setView([36.7211, -4.4213], 13);
+		
+		//contenido del mapa, calles y todo eso
+		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		    maxZoom: 19,
+		    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+		}).addTo(map);
+		
+		
+		 
+		
+		
+		//funcion para añadir popup donde se hace click
+		var popup = L.popup();
+
+		function onMapClick(e) {
+		    popup
+		        .setLatLng(e.latlng)
+		        .setContent("Posición: " + e.latlng.toString())
+		        .openOn(map);
+		    document.getElementById("latitude").value = e.latlng.lat;
+		    document.getElementById("longitude").value = e.latlng.lng;
+		}
+
+		map.on('click', onMapClick); 
+	
+		
+		
 	    $.ajax({
 	    	type:"GET",
 	      	url: sessionStorage.url+"/api/apartment/"+sessionStorage.apartmentId,
@@ -88,6 +127,11 @@
 			document.getElementById("description").value = data.description;
 			document.getElementById("capacity").value = data.capacity;
 			document.getElementById("price").value = data.price;
+			document.getElementById("latitude").value = data.latitude;
+			document.getElementById("longitude").value = data.longitude;
+			var marker = L.marker([data.latitude, data.longitude]).addTo(map);
+
+			
 	    });
 	});
 	
@@ -105,6 +149,9 @@
 		if(a.length > 0){
 			formData.append("image", document.getElementById("fileId").files[0])
 		}
+		formData.append("latitude", document.getElementById("latitude").value)
+		formData.append("longitude", document.getElementById("longitude").value)
+
 		
 		$.ajax({
 			type:"PUT",
@@ -205,10 +252,15 @@
                                     
                                 </tbody>
                             </table>
-                            <p><input type="text" id="description" placeholder="Apartment, suite, unit, building, floor, etc." size="100">
+                            <p><textarea id="description" placeholder="Apartment, suite, unit, building, floor, etc." rows=3 cols=150></textarea>
                             </p>
                             <p>Fecha de disponibilidad: <input type="date" id="date" placeholder="01/01/1999"></p>
-                            
+                            <div id="map" style="height:700px; width:1200px; margin:0 auto; margin-bottom:50px"></div>
+                            	
+                            	<label for="latitud">Latitud: </label>
+                            	<input id="latitude" type="number" step="0.0000000000000001" id="latitud" readonly>
+								<label for="longitud">Longitud: </label>
+								<input id="longitude" type="number"  step="0.0000000000000001" id="longitud" readonly>
                             
                             <div>
 								<form method="POST" enctype="multipart/form-data" action="javascript:addFlat()">

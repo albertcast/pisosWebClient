@@ -30,7 +30,6 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
 
 	<!-- Js Plugins -->
-    <script>console.log("Se va a cargar el nice");</script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.magnific-popup.min.js"></script>
@@ -39,7 +38,17 @@
     <script src="js/jquery.slicknav.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+	     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+	     crossorigin=""/>	 
+	<!-- Make sure you put this AFTER Leaflet's CSS -->
+	 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+	     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+	     crossorigin=""></script>
 	
+	
+	<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+	 <script src="js/leaflet.markercluster.js"></script>
 	<script type="text/javascript"> 
     	$(function(){
 			$("#header").load("header.html"); 
@@ -81,15 +90,12 @@
 	    	}
 			document.getElementById("capac").max = data.capacity;
 	    });
-	</script>
-	<script>
+
+
 		var newMin = function(){
 			document.getElementById("date-out").min = document.getElementById("date-in").value
 		}
 	
-	
-	</script>
-	<script>
 		var reservar = function(){
 			$.ajax({
 				type:"POST",
@@ -124,7 +130,8 @@
 	    		})
 	    	})};
 			
-			
+	    	var map;
+	    	
    		
    	
 	function addComment(){
@@ -163,24 +170,25 @@
 				rating:document.getElementById("valorar").value,
 				date:fecha,
 			},
-			success: function(data){			
+			success: function(data){	
+				location.reload();
 				 //alert("SE HA AÑADIDO LA VIVIENDA CORRECTAMENTE");
 			}
 		});
 	}
 	
-	function borrar(id){
+	function borrar(cid){
 		$.ajax({
 				type:"DELETE",
-				url: sessionStorage.url+"/api/comment/delete/",
+				url: sessionStorage.url+"/api/comment/",
 				data:{
-					comment:id,
+					id:cid,
 				},
 				success: function(msg){
 					//alert("SE HA ELIMINADO EL COMENTARIO CORRECTAMENTE");
 				}
 			}).then(function(datos){
-				location.href = "detallesVivienda.html";
+				location.reload();
 			})
 	}
 	
@@ -231,16 +239,7 @@
                         <div class="rd-text">
                             <div class="rd-title">
                                 <h3 class="apartment-title"></h3>
-                                <div class="rdt-right">
-                                    <div class="rating">
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star"></i>
-                                        <i class="icon_star-half_alt"></i>
-                                    </div>
-                                    <a href="#">Booking Now</a>
-                                </div>
+                                
                             </div>
                             <h2 class="apartment-price">€<span>/Por noche</span></h2>
                             <table>
@@ -256,9 +255,10 @@
                                     
                                 </tbody>
                             </table>
-                            <p class="apartment-description">
-                            </p>
+                            <label for="description">Descripción</label>
+                            <textarea id="description" rows=3 cols=150 readonly></textarea>
                         </div>
+                        <div id="map" style="height:700px; width:1200px; margin:0 auto; margin-bottom:50px"></div>
                     </div>
                     <div class="rd-reviews">
                         <h4>Reseñas</h4>
