@@ -56,7 +56,7 @@
     				name:document.getElementById("searchUserText").value,
     			},
     			success: function(data){
-    				let output = data.map(i => "<tr class='clickable' onclick='sendToMensajes("+ '"'+ i.id + '"' + ")'><td>" + i.email + "</td><td>" + i.nombre 
+    				let output = data.map(i => "<tr class='clickable' onclick='sendToMensajes("+ '"'+ i.usuarioId + '"' + ")'><td>" + i.email + "</td><td>" + i.nombre 
 							+ "</td><td>" + i.apellidos + "</td><td>" + i.edad + "</td></tr>").join('');
 					document.getElementById("tablaUser").innerHTML = "<tr ><th>Email</th><th>Name</th><th>Lastname</th><th>Age</th></tr>"+ output;
     			}
@@ -69,6 +69,22 @@
     		sessionStorage.receiver = id;
     		location.href = "listaMensajes.html"
     	}
+    	
+    	$(document).ready(function(){
+    		$.ajax({
+    			url:sessionStorage.url+"/api/user/usersByChats",
+    			data:{
+    				usuarioId:sessionStorage.userId,
+    			},
+    			success: function(data){
+    				let output = data.map(i => "<tr class='clickable' onclick='sendToMensajes("+ '"'+ i.usuarioId + '"' + ")'><td>" + i.email + "</td><td>" + i.nombre 
+							+ "</td><td>" + i.apellidos + "</td><td>" + i.edad + "</td></tr>").join('');
+					document.getElementById("tablaConver").innerHTML = "<tr ><th>Email</th><th>Name</th><th>Lastname</th><th>Age</th></tr>"+ output;
+    			}
+    		})
+    	})
+    		
+    	
 
     	
     	
@@ -80,27 +96,34 @@
     		width:50%;
     	
     	}
-		#tablaUser {
+		#tablaUser, #tablaConver{
 		  font-family: Arial, Helvetica, sans-serif;
 		  border-collapse: collapse;
-		  width: 100%;
+		  width: 90%;
+		  margin:auto;
 		}
 		
-		#tablaUser td, #tablaUser th {
+		#tablaUser td, #tablaUser th, #tablaConver td, #tablaConver th {
 		  border: 1px solid #ddd;
 		  padding: 8px;
 		}
 		
 		#tablaUser tr:nth-child(even){background-color: #f2f2f2;}
+		#tablaConver tr:nth-child(even){background-color: #f2f2f2;}
 		
 		#tablaUser tr:hover {background-color: #ddd;}
+		#tablaConver tr:hover {background-color: #ddd;}
 		
-		#tablaUser th {
+		#tablaUser th, #tablaConver th {
 		  padding-top: 12px;
 		  padding-bottom: 12px;
 		  text-align: left;
 		  background-color: #F28C28;
 		  color: white;
+		}
+		h3 {
+			padding-left:70px;
+			padding-bottom:5px;
 		}
 	</style>
 
@@ -125,6 +148,7 @@
 	
 	</form>
 	</div>
+	<h3>Búsqueda</h3>
 	<table id="tablaUser">
 		<tr>
 		   <th>Email</th>
@@ -134,8 +158,19 @@
 		</tr>
 		
 	</table>
+	<br><hr  style="width:80%; border-top: 3px solid #bbb;
+">
 	
-	
+	<h3>Conversaciones </h3>
+	<table id="tablaConver">
+		<tr>
+		   <th>Email</th>
+		   <th>Name</th>
+		   <th>Lastname</th>
+		   <th>Age</th>
+		</tr>
+		
+	</table>
 	<!-- Footer Section Begin -->
     <div id="footer"></div>
     <!-- Footer Section End -->

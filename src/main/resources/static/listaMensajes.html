@@ -37,31 +37,102 @@
 		 });
     	
     	
-    	$(document).ready(function(){
+    	$(document).ready(mostrarMensajes())
+    	
+    	
+    	function mostrarMensajes(){
     		$.ajax({
-    			url:sessionStorage.url+"/api/user/messagesBetweenUsers",
+    			url:sessionStorage.url+"/api/message/messagesBetweenUsers",
     			data:{
     				firstUserId:sessionStorage.userId,
     				secondUserId:sessionStorage.receiver,
     			},
     			success:function(data){
-    				let output = data.map(i => "<tr><td>" + i.sender+ "</td><td>" + i.receiver
-							+ "</td><td>" + i.content + "</td></tr>").join('');
-					document.getElementById("tablaUser").innerHTML = "<tr ><th>Email</th><th>Name</th><th>Lastname</th><th>Age</th></tr>"+ output;
-    			}
-    			
-    			
-    			
+    				if(data != null){
+    					document.getElementById("tablaMensajes").innerHTML = "<tr><th>Usuario</th><th>Mensaje</th></tr>";
+	    				data.map(i => {
+	    					let sel = '';
+	    					if(i.sender==sessionStorage.userId){
+	    						sel +="<tr style='border: solid thin' class='table-success'><td>" + i.sender+ "</td><td style='width:125px'>" + i.content + "</td><td style='width: 1px; white-space:nowrap;'><form action='javascript:editarComentario("+'"'+i.content+'","'+i.id+'"'+")'><input class='btn btn-warning' type='submit' value='Editar'></form></td><td style='width: 1px; white-space:nowrap;'><form action='javascript:borrarComentario("+'"'+i.id+'"'+")'><input class='btn btn-danger' type='submit' value='Borrar'></form></td></tr>";
+	    					} else {
+	    						sel +="<tr><td>" + i.sender+ "</td><td>" + i.content + "</td></tr>";
+	    					}
+							document.getElementById("tablaMensajes").innerHTML +=  sel;
+	    				
+	    				});
+    				}
+    			}		
+    		})   		
+    	}
+    	
+    	
+    	function nuevoMensaje(){
+    		document.getElementById("formCrear").hidden = false;
+    		document.getElementById("formEditar").hidden= true;
+
+    	}
+    	
+    	function crearMensaje(){
+    		$.ajax({
+    			type:"POST",
+    			url:sessionStorage.url+"/api/message/",
+    			data:{
+    				sender:sessionStorage.userId,
+    				receiver:sessionStorage.receiver,
+    				content:document.getElementById("contentId").value,
+    			},
+    			success:function(){
+    				mostrarMensajes();
+    	    		document.getElementById("formEditar").hidden= true;
+    	    		document.getElementById("formCrear").hidden= true;
+
+    			},
     		})
-    		
-    		
-    		
-    		
-    		
-    	})
+    	}
+    	
+    	function editarComentario(cont, id){
+    		document.getElementById("formCrear").hidden = true;
+    		document.getElementById("formEditar").hidden= false;
+    		document.getElementById("contId").value= cont;
+    		document.getElementById("formEditar").action= "javascript:editarMensaje('"+id+"')";
+    	}
+    	
+    	function editarMensaje(mId){
+    		$.ajax({
+    			type:"PUT",
+    			url:sessionStorage.url+"/api/message/",
+    			data:{
+    				id:mId,
+    				content:document.getElementById("contId").value,
+    			},
+    			success:function(){
+    				mostrarMensajes();
+    				document.getElementById("formEditar").hidden= true;
+    	    		document.getElementById("formCrear").hidden= true;
+    			},
+    		})	
+    	}
+    	
+    	function borrarComentario(meId){
+    		$.ajax({
+    			type:"DELETE",
+    			url:sessionStorage.url+"/api/message/",
+    			data:{
+    				id:meId,
+    			},
+    			success:function(){
+    				mostrarMensajes();
+    			},
+    		})	
+    	}
     	
     	
 	</script>
+
+	<style>
+	
+		
+	</style>
 
 </head>
 
@@ -76,7 +147,32 @@
     <!-- Header Section Begin -->
     <div id="header"></div>    
     <!-- Header End -->
-	<div id="tablaMensajes"></div>
+    <div style="margin:auto;width:50%;">
+	    <form action="javascript:nuevoMensaje()">
+	    	<input class="btn btn-primary" type="submit" value="Nuevo mensaje">
+	    
+	    </form>
+	    
+	    <br>
+	    <form id="formCrear" action="javascript:crearMensaje()" hidden=true>
+	    	<label for="contentId">Nuevo mensaje</label><br>
+	    	<textarea rows=5 cols=100 id="contentId"></textarea>
+	    	<br>
+	    	<input type="submit" value="Enviar">
+	    
+	    </form>
+	    
+	    <form id="formEditar" action="javascript:editarMensaje()" hidden=true>
+	    	<label for="contId">Editar mensaje</label><br>
+	    	<textarea rows=5 cols=100 id="contId"></textarea>
+	    	<br>
+	    	<input type="submit" value="Editar">
+	    
+	    </form>
+    </div>
+	<table style="margin:auto; width:50%" id="tablaMensajes">
+			
+	</table>
 
 	<!-- Footer Section Begin -->
     <div id="footer"></div>
