@@ -8,7 +8,7 @@
           $
               .ajaxSetup({
                 beforeSend : function(xhr, settings) {
-				  sessionStorage.url = "http://localhost:8081";
+				  sessionStorage.url = "http://pisoswebserver-env.eba-kwybeuyr.us-east-1.elasticbeanstalk.com";
 
                   if (settings.type == 'POST' || settings.type == 'PUT'
                       || settings.type == 'DELETE') {
