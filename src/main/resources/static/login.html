@@ -7,7 +7,8 @@
 <script type="text/javascript"
     src="/webjars/bootstrap/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../css/login.css"/>
-    
+   
+<script src="https://kit.fontawesome.com/810e0613ae.js" crossorigin="anonymous"></script>
 </head>
 <body class="login">
     
@@ -36,7 +37,7 @@
       	    	url: sessionStorage.url+"/api/user/usersByAccountAuthentication",
       	    	data:{accountAuthentication:data.accountAuthentication},
 	        	success: function(msg){
-		             alert(data.string);
+		             //alert(data.string);
 		        }
       	    }).then(function(datos) {
       	    	if(datos == null){
@@ -45,10 +46,10 @@
 						url: sessionStorage.url+"/api/user/",
 						data:{email:data.email, name:data.name, lastname:data.lastname, age:data.age, accountAuthentication:data.accountAuthentication, image:data.avatar_url},
 						success: function(msg){
-				             alert(data.accountAuthentication);
+				             //alert(data.accountAuthentication);
 				        }
 					}).then(function(d){
-						alert(data.string);
+						//alert(data.string);
 						sessionStorage.userId = d.usuarioId;				
 					})
 				} else {
@@ -56,7 +57,7 @@
 				}	
       	    });
         	
-            $("#user").html(data.authorities);
+            $("#user").html(data.name);
             $(".unauthenticated").hide();
             $(".authenticated").show();
           });
@@ -74,18 +75,22 @@
             return true;
           }
         </script>
-        
-	<div class="login-div" style="width:800px; margin:0 auto; background-color:white">
-		<div id="login">
-		    <div class="container unauthenticated">
-		        With GitHub: <a href="/oauth2/authorization/github">click here</a>
-		    </div>
-		    <div class="container authenticated" style="display: none">
-		        Logged in as: <span id="user"></span>
-		        <div>
-		            <button onClick="logout()" class="btn btn-primary">Logout</button>
-		        </div>
-		    </div>
+        <div>
+        <br><br><br><br><br><br>
+        <br><br><br><br><br><br>
+        <br><br><br><br><br><br>
+			<div class="login-div" style="height:20%;width:15%; margin:auto; background-color:white">
+				<div id="login">
+					<a id="github-button" href="/oauth2/authorization/github" class="container unauthenticated btn btn-block btn-social btn-github">
+					  <i class="fa fa-github"></i> Sign in with Github
+					</a>
+				</div>
+		    	<div class="container authenticated" style="display: none">
+			        Logged in as: <span id="user"></span>
+			        <div>
+			            <button onClick="logout()" class="btn btn-primary">Logout</button>
+			        </div>
+		    	</div>
 		    </div>
     </div>        
         
