@@ -42,10 +42,10 @@ $(document).ready(function() {
                 $.ajax({
                     type:"GET",
                        url: sessionStorage.url+"/api/user/"+i.user,
-                }).then(function(datos){
+                       success: function(datos){
                     let output = "<div class='review-item'>"+
                             "<div class='ri-pic'>"+
-                                "<img src='img/room/avatar/avatar-1.jpg' alt=''>"+
+                                "<img src='"+ datos.image +"'>"+
                             "</div>"+
                             "<div class='ri-text'>"+
                                 "<span>"+i.date+"</span>"+
@@ -60,8 +60,8 @@ $(document).ready(function() {
 
                         document.getElementById("tablaComment").innerHTML += output;
 
-                        })
-                        )).join('');
+                        }}
+                        ))).join('');
 
 
         }

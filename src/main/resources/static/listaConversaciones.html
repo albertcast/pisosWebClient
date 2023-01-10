@@ -56,8 +56,12 @@
     				name:document.getElementById("searchUserText").value,
     			},
     			success: function(data){
-    				let output = data.map(i => "<tr class='clickable' onclick='sendToMensajes("+ '"'+ i.usuarioId + '"' + ")'><td>" + i.email + "</td><td>" + i.nombre 
-							+ "</td><td>" + i.apellidos + "</td><td>" + i.edad + "</td></tr>").join('');
+    				let output = '';
+    				data.map(function(i){
+    					if(i.usuarioId != sessionStorage.userId){
+	    					output += "<tr class='clickable' onclick='sendToMensajes("+ '"'+ i.usuarioId + '"' + ")'><td>" + i.email + "</td><td>" + i.nombre + "</td><td>" + i.apellidos + "</td><td>" + i.edad + "</td></tr>";
+    					}
+					});
 					document.getElementById("tablaUser").innerHTML = "<tr ><th>Email</th><th>Name</th><th>Lastname</th><th>Age</th></tr>"+ output;
     			}
     		})
@@ -72,6 +76,7 @@
     	
     	$(document).ready(function(){
     		$.ajax({
+    			type:"GET",
     			url:sessionStorage.url+"/api/user/usersByChats",
     			data:{
     				usuarioId:sessionStorage.userId,

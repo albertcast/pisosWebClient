@@ -25,16 +25,9 @@ $(document).ready(function() {
                             "<a href='#' class='primary-btn' class='clickable' onclick='sendToDetalles("+ '"'+ i.id + '"' + ")'>Más detalles</a>"+
                         "</div></div></div>").join('');
                         
-            let parteAbajo = "<div class='col-lg-12'>"+
-                    "<div class='room-pagination'>"+
-                        "<a href='#'>1</a>"+
-                        "<a href='#'>2</a>"+
-                        "<a href='#'>Next <i class='fa fa-long-arrow-right'></i></a>"+
-                    "</div>"+
-                "</div>";
+            
                 
 			document.getElementById("tablaAparment").innerHTML += output;
-			document.getElementById("tablaAparment").innerHTML += parteAbajo;
 		}
     })
 });	

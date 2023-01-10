@@ -111,20 +111,42 @@
 	    			type:"GET",
 	    	        url: sessionStorage.url+"/api/apartment/"+window.sessionStorage.apartmentId
 	    		}).then(function(datos){
+	    			var formData = new FormData();
+	    			formData.append("id", sessionStorage.apartmentId)
+	    			formData.append("title", datos.title)
+	    			formData.append("place", datos.place)
+	    			formData.append("description", datos.description)
+	    			formData.append("date", document.getElementById("date-out").value)
+	    			formData.append("owner", datos.owner)
+	    			formData.append("capacity", datos.capacity)
+	    			formData.append("price", datos.price)
+	    			formData.append("latitude", datos.latitude)
+	    			formData.append("longitude", datos.longitude)
 	    			$.ajax({
 						type:"PUT",
-						url: sessionStorage.url+"/api/apartment/",						
-						data:{
-							id:sessionStorage.apartmentId,
-							title:datos.title,
-							place:datos.place,
-							description:datos.description,
-							date:document.getElementById("date-out").value,
-							capacity:datos.capacity,
-							price:datos.price,
-						},
+						url: sessionStorage.url+"/api/apartment/",	
+						processData: false,
+						contentType: false,
+						data: formData,
+						
 						success: function(data){			
-							 alert("Se ha hecho la reserva");
+							 //alert("Se ha hecho la reserva");
+							 
+							 $.ajax({
+					    			type:"POST",
+					    			url:sessionStorage.url+"/api/message/",
+					    			data:{
+					    				sender:sessionStorage.userId,
+					    				receiver:datos.owner,
+					    				content:"He realizado una reserva de tu piso " + datos.title + " desde el " + document.getElementById("date-in").value + " hasta " + document.getElementById("date-out").value + " para " + document.getElementById("capac").value + " huéspedes",
+					    			},
+					    			success:function(){
+					    				sessionStorage.receiver = datos.owner;
+					    				location.href = "listaMensajes.html"
+
+					    			},
+					    		})
+							 
 						}
 					});
 	    		})
